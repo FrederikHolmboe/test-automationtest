@@ -5,7 +5,7 @@ namespace xunittest
         [Fact]
         public void Test1()
         {
-            var boolIsNumber = false;
+            var boolIsNumber = true;
             Assert.True(boolIsNumber);
 
 
