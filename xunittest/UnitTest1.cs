@@ -7,6 +7,7 @@ namespace xunittest
         {
             var boolIsNumber = true;
             Assert.True(boolIsNumber);
+
         }
     }
 }
