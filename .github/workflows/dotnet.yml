@@ -11,7 +11,8 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
-
+    name: syntax-check
+    
     steps:
     - uses: actions/checkout@v3
     - name: Setup .NET
