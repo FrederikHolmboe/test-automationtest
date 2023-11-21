@@ -1,0 +1,32 @@
+name: Generate and Coverage Report
+
+on:
+  push:
+    branches:
+      - dev  # Adjust this to your branch name
+
+jobs:
+  generate_and_send_report:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Setup .NET Core
+      uses: actions/setup-dotnet@v5
+      with:
+        dotnet-version: 3.1  # or the version you need
+
+    - name: Restore dependencies
+      run: dotnet restore
+
+    - name: Run tests and generate coverage
+      run: |
+        dotnet tool install --global coverlet.console
+        dotnet test /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura
+
+    - name: Generate Coverage Report
+      run: |
+        dotnet tool install -g dotnet-reportgenerator-globaltool --version 4.7.0
+        reportgenerator -reports:**/coverage.cobertura.xml -targetdir:coverage
