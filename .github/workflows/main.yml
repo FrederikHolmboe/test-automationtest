@@ -23,6 +23,9 @@ jobs:
       run: |
         dotnet tool install --global coverlet.console
         dotnet test /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura
+    
+    - name: Check coverage file
+      run: test -e TestProject2/coverage.cobertura.xml
 
     - name: Generate Coverage Report
       if: success()
