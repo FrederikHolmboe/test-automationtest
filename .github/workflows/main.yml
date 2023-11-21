@@ -25,6 +25,7 @@ jobs:
         dotnet test /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura
 
     - name: Generate Coverage Report
+      if: success()
       run: |
         dotnet tool install -g dotnet-reportgenerator-globaltool --version 4.7.0
         reportgenerator -reports:**/coverage.cobertura.xml -targetdir:coverage
