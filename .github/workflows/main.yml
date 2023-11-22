@@ -36,7 +36,7 @@ jobs:
     - name: Send File to Discord Webhook
       if: success()
       env:
-        DISCORD_WEBHOOK_URL: ${{ secrets.https://discord.com/api/webhooks/1176974224586448997/BpjGhFnnJc3x2SpLmVXZpVFcSXOlKv7XvilaL0wAPAN1lBEmOpzoG8O8P3TG9QAhWjt3 }}
+        DISCORD_WEBHOOK_URL: ${{ "https://discord.com/api/webhooks/1176974224586448997/BpjGhFnnJc3x2SpLmVXZpVFcSXOlKv7XvilaL0wAPAN1lBEmOpzoG8O8P3TG9QAhWjt3" }}
       run: |
         curl -X POST -H "Content-Type: application/json" \
          -d '{"content":"Here is the generated file:","file":"coverage/index.html"}' \
