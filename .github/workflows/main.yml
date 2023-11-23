@@ -4,9 +4,8 @@
 name: Generate and Coverage Report
 
 on:
-  push:
-    branches:
-      - dev  # Adjust this to your branch name
+  schedule:
+    - cron: '0 6 * * 1'  # Runs every Monday at 7 am in Central European Time
 
 jobs:
   generate_and_send_report:
