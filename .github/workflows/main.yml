@@ -40,12 +40,9 @@ jobs:
         name: generated-file
         path: coverage/index.html
 
-    - name: Send File to Discord Webhook
-      if: success()
-      env:
-        DISCORD_WEBHOOK_URL: "https://discord.com/api/webhooks/1176974224586448997/BpjGhFnnJc3x2SpLmVXZpVFcSXOlKv7XvilaL0wAPAN1lBEmOpzoG8O8P3TG9QAhWjt3"
+    - name: Notify Discord
       run: |
-        curl -X POST -H "Content-Type: application/json" \
-         -d '{"content":"Here is the generated file:","file":"coverage/index.html"}' \
-         "https://discord.com/api/webhooks/1176974224586448997/BpjGhFnnJc3x2SpLmVXZpVFcSXOlKv7XvilaL0wAPAN1lBEmOpzoG8O8P3TG9QAhWjt3"
+        run_url="${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}"
+        curl -X POST -H "Content-Type: application/json" -d "{\"content\":\"GitHub Action completed! View details [here]($run_url)\"}" 
+        "https://discord.com/api/webhooks/1176974224586448997/BpjGhFnnJc3x2SpLmVXZpVFcSXOlKv7XvilaL0wAPAN1lBEmOpzoG8O8P3TG9QAhWjt3"
 
