@@ -31,11 +31,6 @@ jobs:
     - name: Check coverage file
       run: test -e TestProject2/coverage.cobertura.xml
 
-    - name: List files in the repository
-      if: success()
-      run: |
-        ls ${{ github.workspace }}/TestProject2 
-
     - name: ReportGenerator
       if: success()
       uses: danielpalme/ReportGenerator-GitHub-Action@5.2.0
