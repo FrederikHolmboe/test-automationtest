@@ -34,13 +34,13 @@ jobs:
     - name: List files in the repository
       if: success()
       run: |
-        ls ${{ github.workspace }}  
+        ls ${{ github.workspace }}/TestProject2 
 
     - name: ReportGenerator
       if: success()
       uses: danielpalme/ReportGenerator-GitHub-Action@5.2.0
       with:
-        reports: coverage.cobertura.xml
+        reports: TestProject2/coverage.cobertura.xml
         targetdir: coverage
 
     - name: Notify Discord
