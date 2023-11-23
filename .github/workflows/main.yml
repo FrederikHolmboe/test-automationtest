@@ -31,22 +31,16 @@ jobs:
     - name: Check coverage file
       run: test -e TestProject2/coverage.cobertura.xml
 
-    - name: Generate Coverage Report
-      if: success()
-      run: |
-        dotnet tool install -g dotnet-reportgenerator-globaltool --version 4.7.0
-        reportgenerator -reports:**/coverage.cobertura.xml -targetdir:coverage
-
     - name: List files in the repository
       if: success()
       run: |
-        ls ${{ github.workspace }}/coverage   
+        ls ${{ github.workspace }}  
 
     - name: ReportGenerator
       if: success()
       uses: danielpalme/ReportGenerator-GitHub-Action@5.2.0
       with:
-        reports: coverage/cobertura.xml
+        reports: coverage.cobertura.xml
         targetdir: coverage
 
     - name: Notify Discord
