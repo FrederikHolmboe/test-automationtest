@@ -36,14 +36,8 @@ jobs:
         dotnet tool install -g dotnet-reportgenerator-globaltool --version 4.7.0
         reportgenerator -reports:**/coverage.cobertura.xml -targetdir:coverage
 
-    - name: Upload File as Artifact
-      if: success()
-      uses: actions/upload-artifact@v2
-      with:
-        name: generated-file
-        path: coverage/index.html
-
     - name: ReportGenerator
+      if: success()
       uses: danielpalme/ReportGenerator-GitHub-Action@5.2.0
       with:
         reports: 'coverage.xml' # REQUIRED # The coverage reports that should be parsed (separated by semicolon). Globbing is supported.
