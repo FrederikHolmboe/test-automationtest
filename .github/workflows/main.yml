@@ -41,7 +41,7 @@ jobs:
       uses: danielpalme/ReportGenerator-GitHub-Action@5.2.0
       with:
         reports: cobertura.xml
-        targetdir: coverageReport
+        targetdir: coverage
 
     - name: Notify Discord
       if: success()
