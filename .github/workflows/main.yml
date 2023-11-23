@@ -5,7 +5,7 @@ name: Generate and Coverage Report
 
 on:
   schedule:
-    - cron: '0 6 * * 1'  # Runs every Monday at 7 am in Central European Time
+    - cron: '0 18 * * 4'  # Runs every Thursday at 7 pm in Central European Time (UTC+1)
 
 jobs:
   generate_and_send_report:
