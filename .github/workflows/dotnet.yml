@@ -12,14 +12,28 @@ jobs:
     name: syntax-check
 
     steps:
+    - name: Check for file changes
+      id: file_changes
+      run: |
+          if [ -n "$(git diff --name-only ${{ github.event.before }} ${{ github.sha }} -- 'path/to/your/file.txt')" ]; then
+            echo "::set-output name=file_changed::true"
+          else
+            echo "::set-output name=file_changed::false"
+          fi
+    
     - uses: actions/checkout@v3
     - name: Setup .NET
+      if: steps.set-boolean.outputs.my_boolean == 'true'
       uses: actions/setup-dotnet@v3
       with:
         dotnet-version: 6.0.x
+        
     - name: Restore dependencies
+      if: steps.set-boolean.outputs.my_boolean == 'true'
       run: dotnet restore
     - name: Build
+      if: steps.set-boolean.outputs.my_boolean == 'true'
       run: dotnet build --no-restore
     - name: Test
+      if: steps.set-boolean.outputs.my_boolean == 'true'
       run: dotnet test --no-build --verbosity normal
