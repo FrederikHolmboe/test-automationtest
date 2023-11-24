@@ -18,25 +18,28 @@ jobs:
     - name: Check for file changes
       id: file_changes
       run: |
-          if [ -n "$(git diff --name-only ${{ github.event.before }} ${{ github.sha }} -- './TestProject2/**')" ]; then
-            echo "::set-output name=file_changed::true"
+          changes=$(git diff --name-only ${{ github.event.before }} ${{ github.sha }} -- './TestProject2')
+          if [ -n "$changes" ]; then
+            echo "Changes detected in your-folder."
+            echo "::set-output name=changes_exist::true"
           else
-            echo "::set-output name=file_changed::false"
+            echo "No changes detected in your-folder."
+            echo "::set-output name=changes_exist::false"
           fi
     
   
     - name: Setup .NET
-      if: steps.set-boolean.outputs.my_boolean == 'true'
+      if: ${{ steps.check_changes.outputs.changes_exist == 'true' }}
       uses: actions/setup-dotnet@v3
       with:
         dotnet-version: 6.0.x
         
     - name: Restore dependencies
-      if: steps.set-boolean.outputs.my_boolean == 'true'
+      if: ${{ steps.check_changes.outputs.changes_exist == 'true' }}
       run: dotnet restore
     - name: Build
-      if: steps.set-boolean.outputs.my_boolean == 'true'
+      if: ${{ steps.check_changes.outputs.changes_exist == 'true' }}
       run: dotnet build --no-restore
     - name: Test
-      if: steps.set-boolean.outputs.my_boolean == 'true'
+      if: ${{ steps.check_changes.outputs.changes_exist == 'true' }}
       run: dotnet test --no-build --verbosity normal
