@@ -14,11 +14,16 @@ jobs:
     steps:
     - name: Checkout repository
       uses: actions/checkout@v3
+
+    - name: Get Before SHA
+      run: | 
+          echo "Before SHA: ${{ github.event.before }}"
     
     - name: Check for file changes
       id: file_changes
       run: |
-          changes=$(git diff --name-only ${{ github.event.before }} ${{ github.sha }} -- './TestProject2')
+          before_sha=$(git rev-parse ${GITHUB_REF}^1)
+          changes=$(git diff --name-only $before_sha ${{ github.sha }} -- './TestProject2')
           if [ -n "$changes" ]; then
             echo "Changes detected in your-folder."
             echo "::set-output name=changes_exist::true"
