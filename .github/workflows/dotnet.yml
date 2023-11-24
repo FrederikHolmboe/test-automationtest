@@ -12,6 +12,8 @@ jobs:
     name: syntax-check
 
     steps:
+    - uses: actions/checkout@v3
+    
     - name: Check for file changes
       id: file_changes
       run: |
@@ -21,7 +23,7 @@ jobs:
             echo "::set-output name=file_changed::false"
           fi
     
-    - uses: actions/checkout@v3
+  
     - name: Setup .NET
       if: steps.set-boolean.outputs.my_boolean == 'true'
       uses: actions/setup-dotnet@v3
