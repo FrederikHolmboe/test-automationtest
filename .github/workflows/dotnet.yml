@@ -15,7 +15,7 @@ jobs:
     - name: Check for file changes
       id: file_changes
       run: |
-          if [ -n "$(git diff --name-only ${{ github.event.before }} ${{ github.sha }} -- 'TestProject2/**')" ]; then
+          if [ -n "$(git diff --name-only ${{ github.event.before }} ${{ github.sha }} -- './TestProject2/**')" ]; then
             echo "::set-output name=file_changed::true"
           else
             echo "::set-output name=file_changed::false"
