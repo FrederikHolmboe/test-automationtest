@@ -17,14 +17,13 @@ jobs:
       with:
         fetch-depth: 0
     
-    - id: get-changes
     - name: Get changes
       run: |
           changes=$(git diff --name-only ${{ github.event.before }} ${{ github.event.after }} -- './TestProject2')
           echo "Changes111: $changes"
           if [ -n "$changes" ]; then
-            echo "Changes detected in your-folder."
             echo "changes_exist=true" >> $GITHUB_OUTPUT
+            echo "Changes detected in your-folder."
           else
             echo "No changes detected in Au2office.core"
             echo "changes_exist=false" >> $GITHUB_OUTPUT
