@@ -31,7 +31,7 @@ jobs:
 
     - name: Get changes
       run: |
-          echo "get the changes: ${{ steps.get_changes.outputs.changes_exist }}"
+          echo "get the changes: ${{ steps.get-changes.outputs.changes_exist }}"
 
     - name: Setup .NET
       if: ${{ steps.get_changes.outputs.changes_exist == 'true' }}
