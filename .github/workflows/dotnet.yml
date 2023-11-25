@@ -21,7 +21,6 @@ jobs:
       id: get-changes
       run: |
           changes=$(git diff --name-only ${{ github.event.before }} ${{ github.event.after }} -- './TestProject2')
-          echo "Changes111: $changes"
           if [ -n "$changes" ]; then
             echo "changes_exist=true" >> $GITHUB_OUTPUT
             echo "Changes detected in your-folder."
@@ -29,14 +28,6 @@ jobs:
             echo "No changes detected in Au2office.core"
             echo "changes_exist=false" >> $GITHUB_OUTPUT
           fi
-
-    - name: Get Before SHA
-      run: | 
-          echo "Before SHA: ${{ github.event.before }}"
-
-    - name: Get changes
-      run: |
-          echo "get the changes: ${{ steps.get-changes.outputs.changes_exist }}"
 
     - name: Setup .NET
       if: ${{ steps.get-changes.outputs.changes_exist == 'true' }}
