@@ -21,7 +21,7 @@ jobs:
 
     - name: Set boolean to true if folder changed
       run: |
-        folder_changed=$(git diff --name-only ${{ github.sha }}^ ${{ github.sha }} | grep './TestProject2')
+        folder_changed=$(git diff --name-only ${{ github.event.before }} ${{ github.sha }} | grep './TestProject2')
         if [ -n "$folder_changed" ]; then
           echo "Folder changed. Set boolean to true."
           echo "BOOL_VARIABLE=true" >> $GITHUB_ENV
