@@ -14,6 +14,7 @@ namespace test_automationtest.Functions
                 return test1 * test1;
             else
                 return test1;
+
         }
     }
 }
