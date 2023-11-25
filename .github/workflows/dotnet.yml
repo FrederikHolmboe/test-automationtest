@@ -29,18 +29,22 @@ jobs:
       run: | 
           echo "Before SHA: ${{ github.event.before }}"
 
+    - name: Get changes
+      run: |
+          echo "get the changes: ${{ steps.get_changes.outputs.changes_exist }} 
+
     - name: Setup .NET
-      if: ${{ steps.check_changes.outputs.changes_exist == 'true' }}
+      if: ${{ steps.get_changes.outputs.changes_exist == 'true' }}
       uses: actions/setup-dotnet@v3
       with:
         dotnet-version: 6.0.x
         
     - name: Restore dependencies
-      if: ${{ steps.check_changes.outputs.changes_exist == 'true' }}
+      if: ${{ steps.get_changes.outputs.changes_exist == 'true' }}
       run: dotnet restore
     - name: Build
-      if: ${{ steps.check_changes.outputs.changes_exist == 'true' }}
+      if: ${{ steps.get_changes.outputs.changes_exist == 'true' }}
       run: dotnet build --no-restore
     - name: Test
-      if: ${{ steps.check_changes.outputs.changes_exist == 'true' }}
+      if: ${{ steps.get_changes.outputs.changes_exist == 'true' }}
       run: dotnet test --no-build --verbosity normal
