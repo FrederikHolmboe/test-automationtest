@@ -17,6 +17,7 @@ jobs:
       with:
         fetch-depth: 0
     
+    - id: get-changes
     - name: Get changes
       run: |
           changes=$(git diff --name-only ${{ github.event.before }} ${{ github.event.after }} -- './TestProject2')
