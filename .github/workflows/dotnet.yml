@@ -18,21 +18,17 @@ jobs:
     - name: Get Before SHA
       run: | 
           echo "Before SHA: ${{ github.event.before }}"
-    
-    - name: Check for file changes
-      id: file_changes
+
+    - name: Set boolean to true if folder changed
       run: |
-          before_sha=$(git rev-parse ${GITHUB_REF}^1)
-          changes=$(git diff --name-only $before_sha ${{ github.sha }} -- './TestProject2')
-          if [ -n "$changes" ]; then
-            echo "Changes detected in your-folder."
-            echo "::set-output name=changes_exist::true"
-          else
-            echo "No changes detected in your-folder."
-            echo "::set-output name=changes_exist::false"
-          fi
+        folder_changed=$(git diff --name-only ${{ github.sha }}^ ${{ github.sha }} | grep './TestProject2')
+        if [ -n "$folder_changed" ]; then
+          echo "Folder changed. Set boolean to true."
+          echo "BOOL_VARIABLE=true" >> $GITHUB_ENV
+        else
+          echo "No change in folder."
+        fi
     
-  
     - name: Setup .NET
       if: ${{ steps.check_changes.outputs.changes_exist == 'true' }}
       uses: actions/setup-dotnet@v3
