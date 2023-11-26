@@ -39,15 +39,7 @@ jobs:
       with:
         dotnet-version: 6.0.x
 
-    - name: Test 1
-      uses: actions/cache@v3
-      with:
-        path: |
-          ~/.nuget/packages
-          ~/.dotnet/core-sdk
-        key: ${{ runner.os }}-dotnet-${{ hashFiles('**/*.csproj') }}
-        restore-keys: |
-          ${{ runner.os }}-dotnet-
+
         
     - name: Restore dependencies
       run: dotnet restore
