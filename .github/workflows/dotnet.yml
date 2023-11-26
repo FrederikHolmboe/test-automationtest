@@ -38,6 +38,14 @@ jobs:
       uses: actions/setup-dotnet@v3
       with:
         dotnet-version: 6.0.x
+
+    - name: Test 1
+      uses: actions/cache@v3
+      with:
+        path: ~/.nuget/packages
+        key: ${{ runner.os }}-nuget-${{ hashFiles('**/packages.lock.json') }}
+        restore-keys: |
+          "${{ runner.os }}-nuget-"
         
     - name: Restore dependencies
       if: ${{ steps.get-changes.outputs.changes_exist == 'true' }}
