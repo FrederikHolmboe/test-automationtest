@@ -28,6 +28,7 @@ jobs:
           if [ -n "$changes" ]; then
             echo "changes_exist=true" >> $GITHUB_OUTPUT
             echo "Changes detected in your-folder."
+            echo "Changes $changes"
           else
             echo "No changes detected in Au2office.core"
             echo "changes_exist=false" >> $GITHUB_OUTPUT
