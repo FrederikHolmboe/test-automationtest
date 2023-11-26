@@ -10,8 +10,6 @@ jobs:
 
     runs-on: ubuntu-latest
     name: syntax-check
-    env:
-        path_to_check: './TestProject2'
 
     steps:
     - name: Checkout repository
@@ -23,9 +21,9 @@ jobs:
       id: get-changes
       run: |
           if ${{ github.event_name == 'pull_request' }}; then
-          changes=$(git diff --name-only -r HEAD^1 HEAD -- ${{ path_to_check }})
+          changes=$(git diff --name-only -r HEAD^1 HEAD -- './TestProject2' )
           else
-          changes=$(git diff --name-only ${{ github.event.before }} ${{ github.event.after }} -- ${{ path_to_check }})
+          changes=$(git diff --name-only ${{ github.event.before }} ${{ github.event.after }} -- './TestProject2' )
           fi
           if [ -n "$changes" ]; then
             echo "changes_exist=true" >> $GITHUB_OUTPUT
