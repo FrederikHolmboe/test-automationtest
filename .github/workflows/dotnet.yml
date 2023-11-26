@@ -33,13 +33,22 @@ jobs:
             echo "changes_exist=false" >> $GITHUB_OUTPUT
           fi
 
+    - name: Cache check
+      uses: actions/cache@v3
+      with:
+        path: |
+          ~/.nuget/packages
+          ~/.dotnet/core-sdk
+        key: ${{ runner.os }}-dotnet-${{ hashFiles('**/*.csproj') }}
+        restore-keys: |
+          ${{ runner.os }}-dotnet-
+
+
     - name: Setup .NET
       if: ${{ steps.get-changes.outputs.changes_exist == 'true' }}
       uses: actions/setup-dotnet@v3
       with:
         dotnet-version: 6.0.x
-
-
         
     - name: Restore dependencies
       run: dotnet restore
