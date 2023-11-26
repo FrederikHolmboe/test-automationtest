@@ -34,6 +34,7 @@ jobs:
           fi
 
     - name: Cache check
+      if: ${{ steps.get-changes.outputs.changes_exist == 'true' }}
       uses: actions/cache@v3
       with:
         path: |
@@ -51,6 +52,7 @@ jobs:
         dotnet-version: 6.0.x
         
     - name: Restore dependencies
+      if: ${{ steps.get-changes.outputs.changes_exist == 'true' }}
       run: dotnet restore
     - name: Build
       if: ${{ steps.get-changes.outputs.changes_exist == 'true' }}
