@@ -16,6 +16,7 @@ namespace TestProject2
             var result = testtest.test1(5, true);
 
             Assert.Equal(25, result);
+
         }
     }
 }
