@@ -20,6 +20,7 @@ jobs:
     - name: Get changes
       id: get-changes
       run: |
+          echo "event ${{ github.event_name }}"
           if ${{ github.event_name == 'pull_request' }}; then
           changes=$(git diff --name-only -r HEAD^1 HEAD -- './TestProject2' )
           else
