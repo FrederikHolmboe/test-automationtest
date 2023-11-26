@@ -47,7 +47,7 @@ jobs:
           ~/.dotnet/core-sdk
         key: ${{ runner.os }}-dotnet-${{ hashFiles('**/*.csproj') }}
         restore-keys: |
-          "${{ runner.os }}-dotnet-"
+          ${{ runner.os }}-dotnet-
         
     - name: Restore dependencies
       run: dotnet restore
