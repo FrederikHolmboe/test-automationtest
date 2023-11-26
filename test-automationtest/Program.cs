@@ -10,4 +10,5 @@ int test1 (int test1, bool multiply)
         return test1 * test1;
     else
         return test1;
+
 }
